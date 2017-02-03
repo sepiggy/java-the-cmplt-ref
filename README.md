@@ -302,11 +302,178 @@
 ### 4.8 使用圆括号
 
 
-
 ## 第5章 控制语句
 
+1. 定义：`根据程序的状态变化，引导程序的执行流程和分支的语句。`
+2. 分类
+   - 选择语句：允许程序根据表达式的输出或变量的状态，选择不同的执行路径。
+   - 迭代语句：使程序能够重复执行一条或多条语句。
+   - 跳转语句：使程序能够以非线性的方式执行。
 
 
+### 5.1 选择语句
+
+1. 作用：根据只有在运行期间才知道的条件来控制程序的执行流程。
+2. 分类
+   - if 语句
+   - switch 语句
+
+#### 5.1.1 if 语句
+
+1. 可以使用if语句通过两个不同的路径，引导程序的执行流程。
+
+2. 语法形式
+
+   ```java
+   if (condition) statement1;
+   else statement2;
+   ```
+
+   其中，每条语句既可以是单条语句，也可以是位于花括号中的复合语句（代码块）。condition是返回布尔值的任何表达式。else子句是可选的。
+
+3. 流程
+   `如果condition为true，就执行statement1；否则执行statement2（如果存在的话）。不允许两条语句都执行。`
+
+4. 最通常的情况是，用于控制if语句的表达式会使用关系运算符。然而，也可以使用单个布尔型变量控制if语句，eg:
+
+   ```java
+   boolean dataAvailable;
+   if (dataAvailable)
+     ProcessData();
+   else
+     waitForMoreData();
+   ```
+
+5. 在if和else之后只能有一条语句。如果希望包含多条语句，那么需要创建代码块，eg:
+
+   ```java
+   int bytesAvailable;
+   if (bytesAvailable > 0) {
+     ProcessData();
+     bytesAvailable -= n;
+   } else
+     waitForMoreData();
+   ```
+
+6. if语句的变式
+
+   1. 嵌套的if语句
+      嵌套的if语句是另外一个if或else的目标。当嵌套if语句时，需要记住的主要问题是：
+      `else语句总是与位于同一代码块中最近（并且还没有else子句与之关联）的if语句相关联，作为其else子句。`
+
+      ```java
+      if (i == 10) {
+        if (j < 20) a = b;
+        if (k > 100) c = d;
+        else a = c;
+      }
+      else a = d;
+      ```
+
+   2. if-else-if语句
+      if-else-if语句是一种基于一系列嵌套if语句的常见编程结构，其形式如下所示：
+
+      ```java
+      if (condition)
+        statement;
+      else if (condition)
+        statement;
+      else if (condition)
+        statement;
+      .
+      .
+      .
+      else
+        statement;
+      ```
+
+      if语句从上向下执行。一旦某个条件为true，就会执行与之关联的if语句，并且会略过剩余的语句。如果没有一个条件为true，就执行最后的else语句。最后的else语句作为默认条件，也就是说，如果所有其他条件测试都失败，就执行最后的else语句。如果没有最后的else语句，并且所有其他条件都是false，那么没有动作会发生。
+
+
+
+
+#### 5.1.2 switch 语句
+
+1. switch语句是Java的多分支语句。它为根据一个表达式的值调度执行代码的不同部分，提供了一种简单方法。因此，相对于一系列if-else-if语句，switch语句通常是更好的替代方法。 下面是switch语句的一般形式：
+
+   ```java
+   switch (expression) {
+     case value1:
+       // statement sequence
+       break;
+     case value2:
+       // statement sequence
+       break;
+     .
+     .
+     .
+     case valueN:
+       // statement sequence
+       break;
+     default:
+       // default statement sequence
+   }
+   ```
+
+2. expression表达式类型（6种）：`byte、short、int、char或枚举类型以及String类型（JDK 7+）`
+
+3. case语句：
+
+   - 指定的每个数值必须是唯一的常量表达式（例如字面值）
+   - case值不允许重复
+   - 每个数值的类型必须和expression的类型兼容
+
+4. 工作方式：
+   将表达式的值与case语句中的每个值进行比较，如果发现一个匹配，就会执行该case语句后面的代码；如果没有常量和表达式相匹配，就执行default语句。然而，default语句是可选的。如果没有case常量能与之匹配，并且没有提供default语句，就不会发生进一步的动作。
+
+5. 在switch语句中，可以使用break语句终止语句序列。当遇到break语句时，执行过程就会进入整个switch语句后面的第一行代码。break语句具有“跳出”switch语句的效果。
+
+6. switch语句的变式：嵌套的switch语句
+   可以将switch语句作为外层switch语句的一部分，这称为嵌套的switch语句。因为switch语句定义有自己的代码块，所以内部switch语句中的case常量和外部switch语句中的case常量之间不会引起冲突。
+
+7. switch语句的三个特征
+
+   - switch语句只能进行相等性测试，这一点与if语句不同，if语句可以对任何类型的布尔表达式进行求值。也就是说，switch语句只查看表达式的值是否和某个case常量相匹配。
+   - 在同一switch语句中，两个case常量不允许具有相同的值。当然，switch语句与包围它的外层switch语句可以具有相同的case常量。
+   - 相对于一系列嵌套的if语句，switch语句通常效率更高。
+
+
+
+
+### 5.2 迭代语句
+
+Java的迭代语句包括for、while以及do-while语句。这些语句会创建通常称之为循环的效果。循环重复执行同一套指令，直到遇到结束条件。
+
+#### 5.2.1 while语句
+
+1. 一般形式
+
+   ```java
+   while (condition) {
+     // body of loop
+   }
+   ```
+
+   condition可以是任何布尔表达式。只要这个布尔表达式为true，就会执行循环体；当condition变为false时，程序控制就会转移到紧随循环之后的下一行代码。如果重复执行的语句只有一条，花括号就不是必需的。
+
+2. 因为while循环是在每次循环开始时，对condition表达式进行求值，所以如果condition一开始就是false，那么循环体一次都不会执行。
+
+3. while循环的循环体可以为空。在java中，空语句（只包含一个分号的语句）在语法上是合法的。 
+
+#### 5.2.2 do-while 语句
+
+1. why need `do-while`
+   正如刚才看到的，如果控制while循环的condition最初为false，那么循环体就不会被执行。然而，有时希望至少执行一次循环体，即使condition最初为false。于是引入do-while语句。
+
+2. 一般形式
+
+   ```java
+   do {
+     // body of loop
+   } while (condition);
+   ```
+
+   do-while循环的每次迭代首先执行循环体，然后对condition进行求值。如果condition为true，就继续执行循环；否则终止循环。其中condition必须是布尔表达式。
 
 
 

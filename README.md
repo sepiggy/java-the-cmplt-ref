@@ -476,4 +476,75 @@ Java的迭代语句包括for、while以及do-while语句。这些语句会创建
    do-while循环的每次迭代首先执行循环体，然后对condition进行求值。如果condition为true，就继续执行循环；否则终止循环。其中condition必须是布尔表达式。
 
 
+#### 5.2.3 for语句
 
+1. 传统for语句的一般形式：
+
+   ```java
+   for(initialization; condition; iteration) {
+     // body
+   }
+   ```
+
+2. 在for循环内部声明循环控制变量
+
+3. 使用逗号
+
+4. for循环变体
+
+#### 5.2.4 for循环的for-each版本
+
+1. for-each风格的for循环也被称为增强的for循环。for循环的for-each版本的一般形式如下：
+
+   ```java
+   for(type itr-var : collection) statement-block
+   ```
+
+   type指定了类型，itr-var指定了迭代变量的名称，迭代变量用于接收来自集合的元素，从开始到结束，每次接收一个。collection指定了要遍历的集合。对于循环的每次迭代，会检索出集合中的下一个元素，并存储在itr-var中。循环会重复执行，直到得到集合中的所有元素。
+
+2. for-each风格的for循环中，迭代变量是“只读的”。eg. NoChange.java
+
+3. 对多维数组进行迭代 eg.ForEach3.java
+
+
+#### 5.2.5 嵌套的循环
+
+
+
+### 5.3 跳转语句
+
+Java支持三种跳转语句：break、continue、return。这些语句将控制转移到程序的其他部分。
+注意：
+
+> 除了在此讨论的跳转语句外，Java还支持另外一种可以改变程序执行流程的方式——通过异常处理。异常处理提供了一种结构化方式，用来捕捉运行时错误并通过程序对其进行处理。异常处理是由try、catch、throw、throws以及finally等关键字支持的。本质上，异常处理机制允许程序执行非本地的分支。
+
+#### 5.3.1 使用break语句
+
+在Java中，break语句有三种用途：
+
+1. 用于终止switch语句中的语句序列
+
+2. 用于退出循环
+
+   - 可以在所有Java循环中使用break语句，包括有意设计的无限循环。
+   - 如果在一系列嵌套的循环中使用break语句，那么break语句只中断最内层的循环。
+   - 在一个循环中可以出现多条break语句。但是请小心，过多的break语句可能会破坏代码的结构。
+   - 在某条switch语句中使用的break语句，只会影响该switch语句，不会结束任何外层循环。
+
+3. 用作goto语句的“文明”形式
+
+   - 使用标签的break语句的一般形式如下所示：
+
+     ```java
+     break label;
+     ```
+
+#### 5.3.2 使用continue语句
+
+1. 用来提前终止循环的一次迭代。
+2. 与break语句一样，continue语句也可以指定一个标签，描述继续执行哪个包含它的循环。
+
+#### 5.3.3 return 语句
+
+1. return语句表示要显示地从方法返回。也就是说，return语句导致程序的执行控制转移给方法的调用者。因此，它被归类到跳转语句。
+2. 在方法中，任何时候都可以使用return语句将执行控制转移到方法的调用者。

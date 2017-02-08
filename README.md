@@ -636,3 +636,69 @@ Java支持三种跳转语句：break、continue、return。这些语句将控制
    2. 实参：当调用方法时传递给方法的数值。
 
 ### 6.5 构造函数
+
+1. 构造函数在创建对象之后立即初始化对象。
+
+2. 构造函数的名称和包含它的类的名称相同，并且在语法上和方法类似。
+
+3. 一旦定义构造函数，就会在创建对象之后、new运算符完成之前，立即自动调用构造函数。
+
+4. 构造函数没有返回类型，也不返回void类型。这是因为类构造函数的返回类型隐式地为类本身。
+
+5. 如果没有显式地为类定义构造函数，Java会为类创建默认的构造函数。eg:
+
+   ```java
+   Box mybox1 = new Box(); // new Box()是调用Box()构造函数
+   ```
+
+   在上面这行代码中，没有为Box定义构造函数，但是Java会提供一个默认构造函数，因此上面这行代码不会报错。其中，`new Box();`就表示调用Box类的默认构造函数。
+
+6. 默认构造函数自动地将所有实例变量初始化为其默认值。对于数值类型、引用类型和boolean类型，这个默认值分别是0、null和false。
+
+7. 一旦定义自己的构造函数，Java就不再提供默认的构造函数。
+
+### 6.6 this关键字
+
+1. why `this`?
+   有时，方法需要引用调用它的对象。为了能够进行这种操作，Java定义了`this`关键字。
+
+2. 使用this关键字可以解决`当局部变量和实例变量具有相同的名称时，局部变量隐藏实例变量`的问题。eg:
+
+   ```java
+   class Box {
+     double width;
+     double height;
+     double depth;
+     
+     // Use this to resolve name-space collisions.
+     Box(double width, double height, double depth) {
+       this.width = width;
+       this.height = height;
+       this.depth = depth;
+     }
+   }
+   ```
+
+### 6.7 垃圾回收（garbage collection）
+
+### 6.8 finalize()方法
+
+1. 通过Java提供的“终结（finalization）”机制，可以定义当对象即将被垃圾回收器回收时发生的特定动作。
+
+2. 为了给类添加终结器（finalizer），可以定义finalize()方法。当即将回收类的对象时，Java运行时会调用该方法。在finalize()方法内部，可以指定在销毁对象之前必须执行的那些动作。
+
+3. finalize()方法的一般形式
+
+   ```java
+   protected void finalize() {
+     // finalization code here
+   }
+   ```
+
+4. 只会在即将进行垃圾回收之前调用finalize()方法。这意味着不知道什么时候会执行finalize()方法，甚至也不知道是否会执行finalize()方法。所以，程序应当提供释放对象所使用的系统资源等内容的一些其他方法。对于常规的程序操作而言，不应依赖于finalize()方法。
+
+### 6.9 堆栈类
+
+
+
+## 第7章 方法和类的深入分析

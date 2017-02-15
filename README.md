@@ -966,3 +966,58 @@ Java支持三种跳转语句：break、continue、return。这些语句将控制
 
 
 ## 第8章 继承
+
+### 8.1 继承的基础知识
+
+1. 对于继承某个超类的类来说，类声明的一般形式如下所示：
+
+   ```java
+   class subclass-name extends superclass-name {
+     // body of class
+   }
+   ```
+
+   对于创建的任何子类来说，只能指定一个超类。Java不支持将多个超类继承到单个子类中。
+
+2. 子类不能访问超类中被声明为私有的那些成员。
+
+3. 一旦创建一个定义对象通用方面的超类，就可以继承这个超类，形成更为特殊的子类。每个子类再简单地增加自己特有的属性，这就是继承的本质。
+
+4. 可以将指向继承自某个超类的任何子类对象的引用，赋值给这个超类的引用变量（超类变量可以引用子类对象）。
+
+5. **可以访问哪些成员是由引用变量的类型决定的，而不是由所引用对象的类型决定的。**也就是说，当将指向子类对象的引用赋值给超类的引用变量时，只能访问子类对象的那些在超类中定义的部分。eg:
+
+   ```java
+   class Box {
+     double width;
+     double height;
+     double depth;
+   }
+
+   class BoxWeight extends Box {
+     double weight;
+     
+     BoxWeight(double w, double h, double d, double m) {
+       width = w;
+       height = h;
+       depth = d;
+       weight = m;
+     }
+   }
+
+   class Test {
+     public static void main(String[] args) {
+       Box box = new Box();
+       BoxWeight boxWeight = new BoxWeight(1.0, 2.0, 3.0, 4.0);
+       box = boxWeight;
+       System.out.print(box.width);
+       System.out.print(box.height);
+       System.out.print(box.depth);
+       System.out.print(box.weight); // error!!!
+     }
+   }
+   ```
+
+### 8.2 使用super关键字
+
+1. why `super`?

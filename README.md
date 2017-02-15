@@ -1021,3 +1021,98 @@ Java支持三种跳转语句：break、continue、return。这些语句将控制
 ### 8.2 使用super关键字
 
 1. why `super`?
+   给出一个例子，子类Student继承超类Person，如下所示：
+
+   ```java
+   class Person {
+     String name;
+     int age;
+     int gender;
+     
+     Person(String name, int age, int gender) {
+       this.name = name;
+       this.age = age;
+       this.gender = gender;
+     }
+   }
+
+   class Student extends Person {
+     long stuNo;
+     int grade;
+     
+     Student(String name, int age, int gender, long stuNo, int grade) {
+       this.name = name;
+       this.age = age;
+       this.gender = gender;
+       this.stuNo = stuNo;
+       this.grade = grade;
+     }
+   }
+   ```
+
+   在这个例子中，继承自Person的类Student的实现还不够高效和健壮。例如，Student类的构造函数显式地初始化Person类的name、age和gender变量。不但复制超类中的代码，导致效率低下，而且这暗示着子类必须保证能够访问这些成员。但是，有时会希望创建只有自己才知道实现细节的超类（也就是将数据成员保存为私有的）。对于这种情况，子类就不能直接访问或初始化这些变量。因为封装是OOP的主要特性，所以Java为这个问题提供一个解决方案：无论何时，当子类需要引用它的**直接**超类时，都可以使用关键字`super`。
+   `super`有两种一般用法：
+
+   - 用于调用超类的构造函数
+   - 用于访问超类中被子类的某个成员隐藏的成员
+
+2. 使用super调用超类的构造函数
+   子类可以通过使用下面的super形式，调用超类定义的构造函数：
+
+   ```java
+   super(arg-list);
+   ```
+
+   其中，arg-list是超类中构造函数需要的全部参数，`super()必须总是子类的构造函数中执行的第一条语句`。eg:
+
+   ```java
+   class Person {
+     String name;
+     int age;
+     int gender;
+     
+     Person(String name, int age, int gender) {
+       this.name = name;
+       this.age = age;
+       this.gender = gender;
+     }
+   }
+
+   class Student extends Person {
+     long stuNo;
+     int grade;
+     
+     Student(String name, int age, int gender, long stuNo, int grade) {
+       super(name, age, gender); // call superclass constructor
+       this.stuNo = stuNo;
+       this.grade = grade;
+     }
+   }
+   ```
+
+3. super的另一种用法
+   super的另一种用法和this类似，只不过super总是在引用（在其中使用super关键字的子类的）超类。
+   这种用法的一般形式如下：
+
+   ```java
+   super.member
+   ```
+
+   其中，member既可以是方法，也可以是实例变量。
+   最常使用这种super形式的情况是，`子类的成员名称隐藏了超类中的同名成员`。
+
+### 8.3 创建多级继承层次
+
+1. 每个子类都会继承自己所有超类中的所有特征。因此，只需要添加自己的，特定的应用程序所需要的额外信息即可。这是继承的部分价值，`允许重用代码`。
+2. super()总是引用**最近**超类的构造函数。
+3. 在类层次中，如果超类的构造函数需要参数，那么所有子类必须“向上”传递这些参数。`不管子类本身是否需要参数`，都需要这么做。
+
+### 8.4 构造函数的调用时机
+
+1. 在类层次中，从超类到子类按照继承的顺序调用构造函数。
+2. super()必须是子类构造函数中执行的第一条语句。
+3. 如果没有使用super()，那么将执行每个超类的默认构造函数或无参构造函数。
+
+### 8.5 方法重写
+
+1. 在类层次中，如果子类的一个方法和超类的某个方法具有相同的名称和类型签名，那么称子类中的这个方法重写了超类中相应的那个方法。当在子类中调用被重写的方法时，总是调用由子类定义的版本，由超类定义的版本会被隐藏。

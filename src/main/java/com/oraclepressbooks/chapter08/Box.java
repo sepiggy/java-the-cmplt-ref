@@ -9,9 +9,9 @@ package com.oraclepressbooks.chapter08;
  * @formatter:on
  */
 public class Box {
-  double width;
-  double height;
-  double depth;
+  private double width;
+  private double height;
+  private double depth;
   
   Box(Box ob) {
     width = ob.width;

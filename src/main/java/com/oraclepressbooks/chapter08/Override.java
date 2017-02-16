@@ -30,14 +30,24 @@ class B1 extends A1 {
     k = c;
   }
   
+  /*
   void show() {
+    // super.show();
     System.out.println("k: " + k);
+  }
+  */
+  
+  void show(String msg) {
+    System.out.println(msg + k);
   }
 }
 
 public class Override {
   public static void main(String[] args) {
     B1 subOb = new B1(1, 2, 3);
+    
+    subOb.show("This is k: ");
     subOb.show();
+
   }
 }

@@ -18,6 +18,7 @@ public class CurrentThreadDemo {
     // change the name of the thread
     t.setName("My Thread");
     System.out.println("After name change: " + t);
+    System.out.println(t.getName());
   
     try {
       for(int n=5; n>0; n--) {
